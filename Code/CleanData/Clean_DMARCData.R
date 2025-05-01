@@ -14,14 +14,7 @@ all <- read.csv("DataRaw/DMARC Data 2018-2024 copy.csv")
 # Annual income is household income
 # Federal Poverty Level 
 
-
 # dim(all)
-
-# create 3 clean datasets
-# 1 dataset for visit level
-# 1 household level dataset (collapsing over people and visit level) use birthdates instead of age
-# since their age changes
-# 1 individual level dataset
 
 # little bit of data cleaning
 all$servedDate <- as.Date(all$servedDate)
@@ -33,8 +26,6 @@ all <- all %>%
   )
 
 # Create a visit level data set
-# possible homeless zip code
-# look at seasonality
 
 visit <- all %>% 
   group_by(houseHoldIdAfn, servedDate) %>% 
