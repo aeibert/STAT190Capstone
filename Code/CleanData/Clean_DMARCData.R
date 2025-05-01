@@ -111,7 +111,7 @@ top_locations <- all %>%
 household_data <- household_data %>%
   left_join(top_locations, by = "houseHoldIdAfn")
 
-print(head(household_data, n = 5))
+#print(head(household_data, n = 5))
 
 
 
