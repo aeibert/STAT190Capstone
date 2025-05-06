@@ -68,4 +68,7 @@ monthly_and_cpi <- monthly_counts %>%
     Dairy_lag1 = lag(Dairy, 1),
     high_inflation = if_else(Food > quantile(Food, 0.75, na.rm = TRUE), 1, 0)
   ) %>%
+  filter(year(floor_month) > 2018) %>% # Filter out 2018 since it was the first year collecting data
   drop_na()  # drop any rows with NA after lagging
+
+
