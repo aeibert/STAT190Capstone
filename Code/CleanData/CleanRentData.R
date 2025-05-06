@@ -10,6 +10,9 @@ source("Code/CleanData/Clean_DMARCData.R")
 # I used ChatGPT to help me get this data
 # I also used it to help format this data correctly
 
+# Data can be found at https://www.zillow.com/research/data/
+# I used Zori, smooth, seasonally adjusted, All homes, by county
+
 zori_county <- read_csv("DataRaw/County_zori_uc_sfrcondomfr_sm_sa_month.csv")
 
 # Filter for Polk County, IA
@@ -27,6 +30,7 @@ zori_polk_long <- zori_polk %>%
     floor_month = floor_date(as.Date(raw_date), unit = "month"),  # align to 1st of month
     zori = as.numeric(zori)
   ) %>%
+  filter(year(floor_month) > 2018) %>% # Filter out data from 2018 and earlier
   select(floor_month, zori)
 
 # Joining the data with monthly_counts
