@@ -74,6 +74,12 @@ r_squared <- cor(test.df$pred_visits, test.df$num_VISITS)^2
 cat("Test RMSE:", round(rmse, 2), "\n")
 cat("Test R²:", round(r_squared, 3), "\n")
 
+mean_visits <- mean(test.df$num_VISITS)
+relative_rmse <- rmse / mean_visits
+
+cat("Mean Visits:", round(mean_visits, 2), "\n")
+cat("Relative RMSE:", round(relative_rmse * 100, 2), "%\n")
+
 # Variable importance
 varImpPlot(final_forest, type = 1)
 
@@ -86,10 +92,39 @@ ggplot(test.df, aes(x = num_VISITS, y = pred_visits)) +
        y = "Predicted Visits") +
   theme_minimal()
 
-mean_visits <- mean(test.df$num_VISITS)
-relative_rmse <- rmse / mean_visits
+# Predicting with hypothetical scenarios ----
 
-cat("Mean Visits:", round(mean_visits, 2), "\n")
-cat("Relative RMSE:", round(relative_rmse * 100, 2), "%\n")
+# Try hypothetical values
+new_scenario <- data.frame(
+  Food = 349,
+  Meat = 362,
+  FruitsVeggies = 362,
+  CerealBakery = 370,
+  Dairy = 282,
+  zori = 1290
+)
+
+# Predict number of visits
+predicted_visits <- predict(final_forest, newdata = new_scenario)
+print(predicted_visits)
+
+# Create a comparison data frame
+visits_compare <- tibble(
+  Scenario = c("Average Month", "Hypothetical Scenario"),
+  Visits = c(mean(test.df$num_VISITS), predicted_visits)
+)
+
+# Plot
+ggplot(visits_compare, aes(x = Scenario, y = Visits, fill = Scenario)) +
+  geom_col(width = 0.5) +
+  labs(
+    title = "Predicted Pantry Visits: Hypothetical vs Average",
+    y = "Predicted Number of Visits"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+
+
 
 
