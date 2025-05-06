@@ -32,19 +32,26 @@ ggplot(monthly_and_cpi, aes(x = floor_month)) +
   theme_minimal()
 
 # Compare Visits and Food CPI together
+# I used ChatGPT to help produce this visual since 
+# Visits and CPI are on different scales/metrics
 ggplot(monthly_and_cpi, aes(x = floor_month)) +
   geom_line(aes(y = num_VISITS), color = "steelblue", linewidth = 1.2) +
-  geom_line(aes(y = Food * 10), color = "firebrick", linewidth = 1.2, linetype = "dashed") +  # scaled CPI
+  geom_line(aes(y = Food * 30), color = "firebrick", linetype = "dashed", linewidth = 1.2) +  # scale CPI for visibility
   scale_y_continuous(
     name = "Number of Visits",
-    sec.axis = sec_axis(~./10, name = "Food CPI (scaled)")
+    sec.axis = sec_axis(~ . / 30, name = "Food CPI")  # rescale right axis back to original CPI
   ) +
   labs(
-    title = "Food Pantry Visits vs. Food Prices",
-    x = "Month"
+    title = "DMARC Visits and Food CPI Over Time",
+    x = "Year"
   ) +
-  theme_minimal() + 
-  geom_smooth(aes(y = num_VISITS), method = "loess", se = FALSE, color = "navy")
+  theme_minimal() +
+  theme(
+    axis.title.y.left = element_text(color = "steelblue"),
+    axis.text.y.left = element_text(color = "steelblue"),
+    axis.title.y.right = element_text(color = "firebrick"),
+    axis.text.y.right = element_text(color = "firebrick")
+  )
 
 # Look for correlation -----
 
@@ -92,15 +99,17 @@ summary(lm_model_lag)
 
 # Try hypothetical CPI values
 new_cpi_scenario <- data.frame(
-  Food = 320,
-  Meat = 310,
-  FruitsVeggies = 290,
-  CerealBakery = 280,
-  Dairy = 272
+  Food = 330,
+  Meat = 350,
+  FruitsVeggies = 355,
+  CerealBakery = 360,
+  Dairy = 275,
+  month = factor("Jan", levels = levels(monthly_and_cpi$month))  # or any other month like "Feb", "Mar", etc.
 )
 
-# Predict number of visits
-predicted_visits <- predict(lm_model, newdata = new_cpi_scenario)
+# Hypothetical Situations
+# Predict number of visits using lm model with seasonality
+predicted_visits <- predict(lm_model_time, newdata = new_cpi_scenario)
 print(predicted_visits)
 
 
@@ -171,6 +180,12 @@ r_squared <- cor(test.df$pred_visits, test.df$num_VISITS)^2
 cat("Test RMSE:", round(rmse, 2), "\n")
 cat("Test R²:", round(r_squared, 3), "\n")
 
+mean_visits <- mean(test.df$num_VISITS)
+relative_rmse <- rmse / mean_visits
+
+cat("Mean Visits:", round(mean_visits, 2), "\n")
+cat("Relative RMSE:", round(relative_rmse * 100, 2), "%\n")
+
 # Plot variable importance
 varImpPlot(final_forest, type = 1)
 
@@ -184,7 +199,20 @@ ggplot(test.df, aes(x = num_VISITS, y = pred_visits)) +
   theme_minimal()
 
 
+# Predicting based on hypothetical situations
+# Inserting different potential values
 
+cpi_scenario <- data.frame(
+  Food = 330,
+  Meat = 350,
+  FruitsVeggies = 355,
+  CerealBakery = 360,
+  Dairy = 275
+)
+
+# Predict number of visits
+predicted_visits <- predict(final_forest, newdata = cpi_scenario)
+print(predicted_visits)
 
 
 
