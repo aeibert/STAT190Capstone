@@ -12,14 +12,14 @@ source("Code/CleanData/CleanRentData.R")
 cpi_rent_combined <- monthly_and_cpi %>%
   left_join(zori_polk_long, by = "floor_month")
 
-# Random Forest Model ----
-# Set seed and RNG settings
+# Predicting Individual visits ----
+
 RNGkind(sample.kind = "default")
 set.seed(2291352)
 
 # Select modeling data
 rf_data <- cpi_rent_combined %>%
-  select(num_VISITS, Food, Meat, FruitsVeggies, CerealBakery, Dairy, zori) %>%
+  select(num_PEOPLE_SERVED, Food, Meat, FruitsVeggies, CerealBakery, Dairy, zori) %>%
   drop_na()
 
 # Train-test split
@@ -28,7 +28,7 @@ train.df <- rf_data[train.idx, ]
 test.df  <- rf_data[-train.idx, ]
 
 # Initial forest model
-myforest <- randomForest(num_VISITS ~ ., 
+myforest <- randomForest(num_PEOPLE_SERVED ~ ., 
                          data = train.df,
                          ntree = 1000,
                          mtry = 3,  # sqrt of 6 predictors rounded up
@@ -41,10 +41,10 @@ mtry <- 1:6
 keeps <- data.frame(m = mtry, OOB_MSE = NA)
 
 for (i in seq_along(mtry)) {
-  tempforest <- randomForest(num_VISITS ~ ., data = train.df,
+  tempforest <- randomForest(num_PEOPLE_SERVED ~ ., data = train.df,
                              ntree = 1000,
                              mtry = mtry[i])
-  keeps$OOB_MSE[i] <- mean((predict(tempforest) - train.df$num_VISITS)^2)
+  keeps$OOB_MSE[i] <- mean((predict(tempforest) - train.df$num_PEOPLE_SERVED)^2)
 }
 
 # Plot OOB MSE
@@ -58,7 +58,7 @@ ggplot(keeps, aes(x = m, y = OOB_MSE)) +
 # Final model with best mtry
 best_m <- keeps$m[which.min(keeps$OOB_MSE)]
 
-final_forest <- randomForest(num_VISITS ~ ., 
+final_forest <- randomForest(num_PEOPLE_SERVED ~ ., 
                              data = train.df,
                              ntree = 1000,
                              mtry = best_m,
@@ -68,13 +68,13 @@ final_forest <- randomForest(num_VISITS ~ .,
 test.df$pred_visits <- predict(final_forest, newdata = test.df)
 
 # Evaluation metrics
-rmse <- sqrt(mean((test.df$pred_visits - test.df$num_VISITS)^2))
-r_squared <- cor(test.df$pred_visits, test.df$num_VISITS)^2
+rmse <- sqrt(mean((test.df$pred_visits - test.df$num_PEOPLE_SERVED)^2))
+r_squared <- cor(test.df$pred_visits, test.df$num_PEOPLE_SERVED)^2
 
 cat("Test RMSE:", round(rmse, 2), "\n")
 cat("Test R²:", round(r_squared, 3), "\n")
 
-mean_visits <- mean(test.df$num_VISITS)
+mean_visits <- mean(test.df$num_PEOPLE_SERVED)
 relative_rmse <- rmse / mean_visits
 
 cat("Mean Visits:", round(mean_visits, 2), "\n")
@@ -84,10 +84,10 @@ cat("Relative RMSE:", round(relative_rmse * 100, 2), "%\n")
 varImpPlot(final_forest, type = 1)
 
 # Actual vs Predicted Plot
-ggplot(test.df, aes(x = num_VISITS, y = pred_visits)) +
+ggplot(test.df, aes(x = num_PEOPLE_SERVED, y = pred_visits)) +
   geom_point(color = "darkblue", alpha = 0.6) +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
-  labs(title = "Actual vs Predicted Household Visits",
+  labs(title = "Actual vs Predicted Total Individual Visits",
        x = "Actual Visits",
        y = "Predicted Visits") +
   theme_minimal()
@@ -111,7 +111,7 @@ print(predicted_visits)
 # Create a comparison data frame
 visits_compare <- tibble(
   Scenario = c("Average Month", "Hypothetical Scenario"),
-  Visits = c(mean(test.df$num_VISITS), predicted_visits)
+  Visits = c(mean(test.df$num_PEOPLE_SERVED), predicted_visits)
 )
 
 # Plot
@@ -123,10 +123,3 @@ ggplot(visits_compare, aes(x = Scenario, y = Visits, fill = Scenario)) +
   ) +
   theme_minimal() +
   theme(legend.position = "none")
-
-
-
-
-
-
-
