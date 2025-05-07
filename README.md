@@ -1,6 +1,6 @@
 # STAT 190 Capstone Project
 
-Title: Modeling Visitors for DMARC
+Title: Understanding and Predicting Food Pantry Usage
 
 Authors: Amelia Eibert, Jimmy Fiasche, Sam Trujillo
 
@@ -8,9 +8,9 @@ Date: May 13th, 2025
 
 ## Introduction
 
-For our data analytics capstone, we worked with the Des Moines Area Relgious Council, which is a network of food pantries across the greater Des Moines area. We were provided with a visit dataset which included anonymized data from their intake system. One row for each individual in a household who visited a pantry that month from 2018-2024. We were also provided information about their Red Barrel Program, where they are able to receive donations through these barrels that are located in stores such as Hyvee, Fareway, or Cashsaver.
+For our Data Analytics Capstone project, we partnered with the Des Moines Area Religious Council (DMARC), a network of food pantries serving the greater Des Moines area. We worked with a comprehensive dataset of anonymized pantry visits from 2018 to 2024, where each row represents an individual household member who received assistance during a given month. Additionally, we analyzed data from DMARC’s Red Barrel Program, which collects food donations at local grocery stores like Hy-Vee, Fareway, and Cash Saver.
 
-Our group examined multiple angles such as economic influences, forecasting new visitors, and evaluating the Red Barrel donation program.
+Our group explored this data from several perspectives including the impact of economic conditions on visit volume, forecasting patterns among new visitors, and assessing the role of Red Barrel donations in meeting community needs.
 
 ## Research Questions
 - How many new visitors may they see?
