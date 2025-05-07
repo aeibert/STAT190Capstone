@@ -66,5 +66,36 @@ Zillow ZORI Data:
 
 ## Visuals
 
+### 1. Actual vs Predicted Household Visits
+
+Shows the performance of our visit prediction model using Random Forest regression.
+
+### 2. Actual vs Predicted Total Individual Visits
+
+Demonstrates prediction accuracy at the individual level across months.
+
+### 3. Food Prices (CPI) vs Pantry Visits
+
+Highlights the positive correlation between rising food prices and increased pantry demand.
+
+### 4. DMARC Visits and Food CPI Over Time
+
+Tracks visit volume alongside food price inflation.
+
+### 5. Rent (ZORI) vs Pantry Visits
+
+Suggests upward rent pressure may influence visit volume.
+
+### 6. Donations by Store and Category (Red Barrel Program)
+
+Illustrates how much each store contributed by donation type and year.
+
+### 7. ROC Curve: New Visitor Classification 
+
+Compares model performance in forecasting new pantry visitors.
+
+
+
+
 
 
