@@ -8,7 +8,7 @@ Date: May 13th, 2025
 
 ## Introduction
 
-For our Data Analytics Capstone project, we partnered with the Des Moines Area Religious Council (DMARC), a network of food pantries serving the greater Des Moines area. We worked with a comprehensive dataset of anonymized pantry visits from 2018 to 2024, where each row represents an individual household member who received assistance during a given month. Additionally, we analyzed data from DMARC’s Red Barrel Program, which collects food donations at local grocery stores like Hy-Vee, Fareway, and Cash Saver.
+For our Data Analytics Capstone project, we partnered with the Des Moines Area Religious Council (DMARC), a network of food pantries serving the greater Des Moines area. We worked with a comprehensive dataset of anonymized pantry visits from 2018 to 2024, where each row represents an individual household member who received assistance during a given month. Additionally, we analyzed data from DMARC’s Red Barrel Program, which collects donations at local grocery stores like Hy-Vee, Fareway, and Cash Saver.
 
 Our group explored this data from several perspectives including the impact of economic conditions on visit volume, forecasting patterns among new visitors, and assessing the role of Red Barrel donations in meeting community needs.
 
@@ -47,7 +47,7 @@ Zillow ZORI Data:
   
 ## Data Processing
 - Aggregated visits by month and household.
-- Cleaned and merged economic indicators with visitata.
+- Cleaned and merged economic indicators with visit data.
 - Built separate datasets for:
   - Monthly Visit Counts
   - Household-level stats
