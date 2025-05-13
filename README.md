@@ -66,7 +66,7 @@ Zillow ZORI Data:
 ### Visitor Forecasting
 
 - Modeled future visit volumes using household-level data and time series regressions.
-- Predicted visits from new households using Random Forest and logistic regression.
+- Predicted visits from new households using Sarima seasonal prediction models.
 
 ### CPI and Rent Modeling
 
