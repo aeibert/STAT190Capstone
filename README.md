@@ -14,6 +14,8 @@ Our group explored this data from several perspectives including the impact of e
 
 ## Research Questions
 - How many new visitors may they see?
+- What time of year do the most visitors show up?
+- Is there a trend that can be drawn from visitor counts?
 - How do economic factors affect visits?
 - Does Red Barrel Work?
 - Where can they add more Red Barrels?
