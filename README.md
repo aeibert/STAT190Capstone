@@ -94,8 +94,10 @@ Zillow ZORI Data:
 
 ## Key Findings
 
+- Pantries peak in visitors around November, with elevated visit numbers for most early winter months.
+- Due to an under-tuned model and/or lack of training data not affected by Covid, the model struggled with accuracy. 
 - Economic stressors (rent and food costs) significantly impact pantry usage.
-- Red Barrel donations are concentrated in a few ZIP codes; opportunity exists for broader coverage.
+- Red Barrel donations are concentrated in a few ZIP codes; an opportunity exists for broader coverage.
 - SNAP participation is predictable using ZIP-level socioeconomic data, helping DMARC identify underserved areas.
 
 ## Visuals
