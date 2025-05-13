@@ -41,7 +41,7 @@ Zillow ZORI Data:
 - Rent trends for Polk County, IA
 
 ## Modeling Tools
-- R: `tidyverse`, `caret`, `randomForest`, `pROC`, `lubridate`, `glmnet`
+- R: `tidyverse`, `caret`, `randomForest`, `pROC`, `lubridate`, `glmnet`, `car`, `forecast`, `tsibble`, `fable`, `feasts`, `RColorBrewer`, `dplyr`, `scales`
 - External APIs: FRED (CPI), Zillow (ZORI)
 - Visualization: `ggplot2` time series, scatter plots, feature importance charts, maps
 
