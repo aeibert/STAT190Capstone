@@ -133,3 +133,11 @@ Visualizes food donations per ZIP code and identifies gaps in store participatio
 ### 9. SNAP Participation Predictions by ZIP Code
 
 Maps predicted SNAP participation levels across the Des Moines area and highlights underserved regions.
+
+### 10. Sarima Model Results
+
+Results of Sarima model compared to the observed data for that year
+
+### 11. Number of New Visitors Year over Year  
+
+Shows the differences in visitor numbers during all of the observed years
